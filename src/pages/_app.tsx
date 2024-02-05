@@ -4,7 +4,7 @@ import type { AppProps } from "next/app";
 import { MantineProvider, createTheme } from "@mantine/core";
 
 const theme = createTheme({
-  primaryColor: "green",
+  primaryColor: "blue",
 });
 
 export default function App({ Component, pageProps }: AppProps) {
