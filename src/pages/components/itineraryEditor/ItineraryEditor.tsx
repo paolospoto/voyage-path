@@ -1,25 +1,11 @@
 import { useEffect, useState } from "react";
 import { RequestType, geocode, setDefaults, OutputFormat } from "react-geocode";
 import styles from "./index.module.scss";
-import {
-  APIProvider,
-  Map,
-  Marker,
-  useMap,
-  useMapsLibrary,
-} from "@vis.gl/react-google-maps";
+import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 import { Button, Flex } from "@mantine/core";
-import {
-  IconArrowRight,
-  IconMinus,
-  IconPlus,
-  IconPointFilled,
-  IconX,
-} from "@tabler/icons-react";
+import { IconPlus, IconX } from "@tabler/icons-react";
 
-import { IconHomeMove } from "@tabler/icons-react";
 import Directions from "../directions";
-import { start } from "repl";
 
 const ItineraryEditor = () => {
   const [startInput, setStartInput] = useState("");
@@ -81,21 +67,21 @@ const ItineraryEditor = () => {
   };
 
   const handleStopInput = (index: any) => (e: any) => {
-    const newStops = [...stopInputs];
-    newStops[index] = e.target.value;
-    setStopInputs(newStops);
+    const tempStops = [...stopInputs];
+    tempStops[index] = e.target.value;
+    setStopInputs(tempStops);
   };
   const addStopInput = () => {
     setStopInputs([...stopInputs, ""]);
   };
 
   const handleStopPoints = () => {
-    const newStops = stopInputs.map((stopInput) => ({
+    const tempStops = stopInputs.map((stopInput) => ({
       location: stopInput,
       stopover: true,
     }));
-    setStops(stops.concat(newStops)); // Aggiunge i nuovi stops agli stops esistenti
-    setStopInputs([]); // Reset degli input di stop per nuove inserzioni
+    setStops(stops.concat(tempStops));
+    setStopInputs([]);
   };
 
   return (
@@ -108,6 +94,7 @@ const ItineraryEditor = () => {
               value={startInput}
               onChange={handleStartInput}
               disabled={startLat !== 0}
+              required
             />
             {startLat === 0 && (
               <input type="submit" name="start" value="SET START" />
@@ -127,6 +114,7 @@ const ItineraryEditor = () => {
                     placeholder="Add stops if you want.."
                     value={stop}
                     onChange={handleStopInput(index)}
+                    required
                   />
                 </div>
               ))}
@@ -136,6 +124,7 @@ const ItineraryEditor = () => {
                   placeholder="Select destination.."
                   value={arrivalInput}
                   onChange={handleArrivalInput}
+                  required
                 />
                 <input type="submit" name="arrival" value="SET ARRIVAL" />
               </div>
@@ -143,7 +132,7 @@ const ItineraryEditor = () => {
           )}
         </form>
       ) : (
-        <Flex gap={"sm"}>
+        <Flex gap={"sm"} p={"sm"}>
           <Button>SAVE ITINERARY</Button>
           <Button>
             <IconX />
