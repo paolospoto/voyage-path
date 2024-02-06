@@ -1,0 +1,53 @@
+.Map {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 1rem;
+  border: 2px solid black;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.Form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding-bottom: 2rem;
+  .Input,
+  .StopInput {
+    width: 100%;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 1rem;
+    .Hide {
+      display: none;
+    }
+    input[type="submit"] {
+      width: 10rem;
+      height: 2rem;
+      font-weight: bold;
+      color: white;
+      background-color: #5072ad;
+      border: none;
+      border-radius: 5px;
+    }
+    Button {
+      width: 5rem;
+      height: 2rem;
+      font-weight: bold;
+    }
+  }
+  .StopInput {
+    animation: slideIn 0.3s ease-out;
+  }
+}
