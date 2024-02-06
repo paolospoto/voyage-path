@@ -68,7 +68,7 @@ const ItineraryEditor = () => {
   const handleStartInput = (e: any) => {
     setStartInput(e.target.value);
   };
-  const handleArrivalChange = (e: any) => {
+  const handleArrivalInput = (e: any) => {
     setArrivalInput(e.target.value);
   };
 
@@ -96,7 +96,7 @@ const ItineraryEditor = () => {
   };
 
   return (
-    <div style={{ width: "100%", height: "60vh", padding: "1rem" }}>
+    <div style={{ width: "100%", height: "60vh", padding: "0.5rem" }}>
       {renderForm ? (
         <form className={styles.Form} onSubmit={handleSubmit}>
           <div className={styles.Input}>
@@ -130,9 +130,9 @@ const ItineraryEditor = () => {
             <input
               placeholder="Select destination.."
               value={arrivalInput}
-              onChange={handleArrivalChange}
+              onChange={handleArrivalInput}
             />
-            <input type="submit" name="arrival" value="SET DESTINATION" />
+            <input type="submit" name="arrival" value="SET ARRIVAL" />
           </div>
         </form>
       ) : (
