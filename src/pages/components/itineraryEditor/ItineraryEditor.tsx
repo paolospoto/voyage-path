@@ -19,10 +19,11 @@ import {
 
 import { IconHomeMove } from "@tabler/icons-react";
 import Directions from "../directions";
+import { start } from "repl";
 
 const ItineraryEditor = () => {
   const [startInput, setStartInput] = useState("");
-  const [stopInput, setStopInput] = useState("");
+  const [stopInputs, setStopInputs] = useState<string[]>([]);
   const [stops, setStops] = useState<Stop[]>([]);
   const [arrivalInput, setArrivalInput] = useState("");
   const [startLat, setStartLat] = useState(0);
@@ -48,15 +49,10 @@ const ItineraryEditor = () => {
     switch (submitButtonName) {
       case "start":
         handleStartingPoint();
-
-        break;
-      case "stop":
-        handleStopPoint();
-        setStopInput("");
         break;
       case "arrival":
         console.log(stops);
-
+        handleStopPoints();
         setRenderDirections(true);
         setRenderForm(false);
         break;
@@ -84,15 +80,22 @@ const ItineraryEditor = () => {
       .catch(console.error);
   };
 
-  const handleStopInput = (e: any) => {
-    setStopInput(e.target.value);
+  const handleStopInput = (index: any) => (e: any) => {
+    const newStops = [...stopInputs];
+    newStops[index] = e.target.value;
+    setStopInputs(newStops);
+  };
+  const addStopInput = () => {
+    setStopInputs([...stopInputs, ""]);
   };
 
-  const handleStopPoint = () => {
-    const tempStops = [...stops];
-    tempStops.push({ location: stopInput, stopover: true });
-    setStops(tempStops);
-    setStopInput("");
+  const handleStopPoints = () => {
+    const newStops = stopInputs.map((stopInput) => ({
+      location: stopInput,
+      stopover: true,
+    }));
+    setStops(stops.concat(newStops)); // Aggiunge i nuovi stops agli stops esistenti
+    setStopInputs([]); // Reset degli input di stop per nuove inserzioni
   };
 
   return (
@@ -104,36 +107,40 @@ const ItineraryEditor = () => {
               placeholder="Select starting point.."
               value={startInput}
               onChange={handleStartInput}
+              disabled={startLat !== 0}
             />
-            <input type="submit" name="start" value="SET START" />
-            <Button
-              onClick={() =>
-                renderStopForm
-                  ? setRenderStopForm(false)
-                  : setRenderStopForm(true)
-              }
-            >
-              {renderStopForm ? <IconMinus /> : <IconPlus />}
-            </Button>
+            {startLat === 0 && (
+              <input type="submit" name="start" value="SET START" />
+            )}
+
+            {startLat !== 0 && (
+              <Button onClick={addStopInput}>
+                <IconPlus />
+              </Button>
+            )}
           </div>
-          {renderStopForm && (
-            <div className={styles.StopInput}>
-              <input
-                placeholder="Add stops if you want.."
-                value={stopInput}
-                onChange={handleStopInput}
-              />
-              <input type="submit" name="stop" value="ADD STOP" />
-            </div>
+          {startLat !== 0 && (
+            <>
+              {stopInputs.map((stop, index) => (
+                <div key={index} className={styles.StopInput}>
+                  <input
+                    placeholder="Add stops if you want.."
+                    value={stop}
+                    onChange={handleStopInput(index)}
+                  />
+                </div>
+              ))}
+
+              <div className={styles.Input}>
+                <input
+                  placeholder="Select destination.."
+                  value={arrivalInput}
+                  onChange={handleArrivalInput}
+                />
+                <input type="submit" name="arrival" value="SET ARRIVAL" />
+              </div>
+            </>
           )}
-          <div className={styles.Input}>
-            <input
-              placeholder="Select destination.."
-              value={arrivalInput}
-              onChange={handleArrivalInput}
-            />
-            <input type="submit" name="arrival" value="SET ARRIVAL" />
-          </div>
         </form>
       ) : (
         <Flex gap={"sm"}>
