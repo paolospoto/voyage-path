@@ -133,7 +133,7 @@ const ItineraryEditor = () => {
     }, 2000);
   };
   return (
-    <div style={{ width: "100%", height: "60vh", padding: "0.5rem" }}>
+    <div style={{ width: "100%", height: "60vh", padding: "1.5rem" }}>
       {renderModal && <Modal />}
       {renderForm ? (
         <form className={styles.Form} onSubmit={handleSubmit}>
