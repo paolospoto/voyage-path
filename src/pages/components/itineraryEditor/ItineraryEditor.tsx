@@ -3,7 +3,7 @@ import { RequestType, geocode, setDefaults, OutputFormat } from "react-geocode";
 import styles from "./index.module.scss";
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 import { Button, Flex } from "@mantine/core";
-import { IconPlus, IconX } from "@tabler/icons-react";
+import { IconMinus, IconPlus, IconX } from "@tabler/icons-react";
 
 import Directions from "../directions";
 import { Stop } from "@/utils/types";
@@ -70,8 +70,17 @@ const ItineraryEditor = () => {
     tempStops[index] = e.target.value;
     setStopInputs(tempStops);
   };
+
   const addStopInput = () => {
     setStopInputs([...stopInputs, ""]);
+  };
+  const removeStopInput = (index: any) => {
+    // Crea una copia dell'array per evitare di modificare lo stato direttamente
+    const tempStops = [...stopInputs];
+    // Rimuove 1 elemento all'indice specificato
+    tempStops.splice(index, 1);
+    // Aggiorna lo stato con il nuovo array
+    setStopInputs(tempStops);
   };
 
   const handleStopPoints = () => {
@@ -115,6 +124,9 @@ const ItineraryEditor = () => {
                     onChange={handleStopInput(index)}
                     required
                   />
+                  <Button onClick={() => removeStopInput(index)}>
+                    <IconMinus />
+                  </Button>
                 </div>
               ))}
 
