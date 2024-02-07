@@ -24,9 +24,9 @@ const Directions = ({ start, stops, arrival }: any) => {
     setDirectionsRenderer(
       new routesLibrary.DirectionsRenderer({
         map,
-        polylineOptions: {
-          strokeColor: "white",
-        },
+        // polylineOptions: {
+        //   strokeColor: "white",
+        // },
       })
     );
   }, [routesLibrary, map]);
