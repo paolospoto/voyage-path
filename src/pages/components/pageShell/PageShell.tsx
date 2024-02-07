@@ -18,7 +18,7 @@ const PageShell: React.FC<PageShellProps> = ({ children }) => {
       style={{ zIndex: 9999 }}
       header={{ height: 80 }}
       navbar={{
-        width: 800,
+        width: 300,
         breakpoint: "sm",
         collapsed: { mobile: !opened, desktop: !opened },
       }}
