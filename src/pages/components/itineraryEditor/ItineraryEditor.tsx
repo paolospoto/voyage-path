@@ -3,12 +3,13 @@ import { RequestType, geocode, setDefaults, OutputFormat } from "react-geocode";
 import styles from "./index.module.scss";
 import { APIProvider, Map, Marker } from "@vis.gl/react-google-maps";
 import { Button, Flex } from "@mantine/core";
-import { IconMinus, IconPlus, IconX } from "@tabler/icons-react";
+import { IconMinus, IconPlus } from "@tabler/icons-react";
 
 import Directions from "../directions";
 import { Stop } from "@/utils/types";
 import { createItem, readItem, updateItem } from "@/utils/storage";
-import { start } from "repl";
+
+import Modal from "../modal";
 
 const ItineraryEditor = () => {
   const [startInput, setStartInput] = useState("");
@@ -19,11 +20,24 @@ const ItineraryEditor = () => {
   const [startLat, setStartLat] = useState(0);
   const [startLng, setStartLng] = useState(0);
   const [renderForm, setRenderForm] = useState(true);
-  const [renderStopForm, setRenderStopForm] = useState(false);
+  const [renderModal, setRenderModal] = useState(false);
+
   const [renderMap, setRenderMap] = useState(false);
   const [renderDirections, setRenderDirections] = useState(false);
 
   const position = { lat: startLat, lng: startLng };
+
+  const resetAll = () => {
+    setStartInput("");
+    setStopInputs([]);
+    setStops([]);
+    setArrivalInput("");
+    setRenderForm(true);
+    setRenderMap(false);
+    setRenderDirections(false);
+    setStartLat(0);
+    setStartLng(0);
+  };
 
   setDefaults({
     key: "AIzaSyAziHvXBEgvKmVPbzZkcaTasDxOjWt1cwQ",
@@ -106,14 +120,21 @@ const ItineraryEditor = () => {
     const tempItinerary = readItem("itineraries");
     tempItinerary.push({
       name: nameInput,
+      time: Date.now(),
       start: startInput,
       stops: stops,
       arrival: arrivalInput,
     });
     updateItem("itineraries", tempItinerary);
+    resetAll();
+    setRenderModal(true);
+    setTimeout(() => {
+      setRenderModal(false);
+    }, 2000);
   };
   return (
     <div style={{ width: "100%", height: "60vh", padding: "0.5rem" }}>
+      {renderModal && <Modal />}
       {renderForm ? (
         <form className={styles.Form} onSubmit={handleSubmit}>
           <div className={styles.Input}>
@@ -187,6 +208,7 @@ const ItineraryEditor = () => {
             fullscreenControl={false}
             center={position}
             zoom={10}
+            minZoom={2}
           >
             <Marker position={position} />
             {renderDirections && (

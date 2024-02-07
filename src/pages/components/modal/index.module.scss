@@ -1,0 +1,22 @@
+.Modal {
+  background-color: #5072ad;
+  color: white;
+  text-align: center;
+  width: 300px;
+  border-radius: 0.5rem;
+  font-weight: bold;
+
+  position: fixed;
+  top: 10;
+  left: calc(50% - 150px);
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}

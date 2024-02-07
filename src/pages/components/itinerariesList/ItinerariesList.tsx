@@ -4,6 +4,10 @@ import { APIProvider, Map } from "@vis.gl/react-google-maps";
 import Directions from "../directions";
 import { Button, Flex } from "@mantine/core";
 import { ItineraryData } from "@/utils/types";
+import { formatTimestamp } from "@/utils/functions";
+import { IconMapCancel } from "@tabler/icons-react";
+
+import styles from "./index.module.scss";
 
 const ItinerariesList = () => {
   const [itineraries, setItineraries] = useState<ItineraryData[]>([]);
@@ -17,6 +21,8 @@ const ItinerariesList = () => {
   }, []);
 
   const deleteSavedItineraries = (index: any) => {
+    if (!confirm("Are you sure you want to delete this itinerary?")) return;
+
     const values = readItem("itineraries");
     values.splice(index, 1);
     updateItem("itineraries", values);
@@ -35,9 +41,21 @@ const ItinerariesList = () => {
             justify={"center"}
             pb={"xl"}
           >
-            <h3>{itinerary.name.toUpperCase()}</h3>
-            <Button onClick={() => deleteSavedItineraries(index)}>X</Button>
+            <Flex
+              style={{ height: "8vh", width: "100%" }}
+              justify={"space-between"}
+              align={"center"}
+            >
+              <h3>{itinerary.name.toUpperCase()}</h3>
+              <Flex justify={"center"} align={"center"} gap={"md"}>
+                <p>{formatTimestamp(itinerary.time)}</p>
+                <Button onClick={() => deleteSavedItineraries(index)}>
+                  <IconMapCancel />
+                </Button>
+              </Flex>
+            </Flex>
             <Map
+              className={styles.Map}
               mapId={"56522fd9aef04113"}
               zoomControl={false}
               streetViewControl={false}
