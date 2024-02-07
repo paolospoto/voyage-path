@@ -6,6 +6,7 @@ import { Button, Flex } from "@mantine/core";
 import { IconPlus, IconX } from "@tabler/icons-react";
 
 import Directions from "../directions";
+import { Stop } from "@/utils/types";
 
 const ItineraryEditor = () => {
   const [startInput, setStartInput] = useState("");

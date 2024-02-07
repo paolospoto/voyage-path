@@ -12,3 +12,8 @@ export interface NavbarElProps {
   children?: React.ReactNode;
   onClick?: () => void;
 }
+
+export interface Stop {
+  location: string;
+  stopover: boolean;
+}
