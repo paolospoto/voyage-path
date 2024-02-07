@@ -1,4 +1,4 @@
-import { NavbarElProps } from "./types";
+import { NavbarElProps } from "@/utils/types";
 import { NavLink } from "@mantine/core";
 
 import { usePathname } from "next/navigation";

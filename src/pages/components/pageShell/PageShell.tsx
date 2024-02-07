@@ -2,11 +2,10 @@
 
 import Navbar from "../navbar";
 
-import { PageShellProps } from "./types";
+import { PageShellProps } from "@/utils/types";
 
 import { AppShell, Burger, Flex } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import styles from "./index.module.scss";
 
 import Header from "../header";
 
