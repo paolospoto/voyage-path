@@ -8,6 +8,7 @@ import { formatTimestamp } from "@/utils/functions";
 import { IconMapCancel } from "@tabler/icons-react";
 
 import styles from "./index.module.scss";
+import Link from "next/link";
 
 const ItinerariesList = () => {
   const [itineraries, setItineraries] = useState<ItineraryData[]>([]);
@@ -31,47 +32,56 @@ const ItinerariesList = () => {
 
   return (
     <Flex direction={"column"} align={"center"} justify={"center"} p={"lg"}>
-      <APIProvider apiKey={"AIzaSyAziHvXBEgvKmVPbzZkcaTasDxOjWt1cwQ"}>
-        {itineraries.map((itinerary, index) => (
-          <Flex
-            style={{ height: "80vh", width: "100%" }}
-            key={index}
-            direction={"column"}
-            align={"center"}
-            justify={"center"}
-            pb={"xl"}
-          >
+      {itineraries.length !== 0 ? (
+        <APIProvider apiKey={"AIzaSyAziHvXBEgvKmVPbzZkcaTasDxOjWt1cwQ"}>
+          {itineraries.map((itinerary, index) => (
             <Flex
-              style={{ height: "8vh", width: "100%" }}
-              justify={"space-between"}
+              style={{ height: "80vh", width: "100%" }}
+              key={index}
+              direction={"column"}
               align={"center"}
+              justify={"center"}
+              pb={"xl"}
             >
-              <h3>{itinerary.name.toUpperCase()}</h3>
-              <Flex justify={"center"} align={"center"} gap={"md"}>
-                <p>{formatTimestamp(itinerary.time)}</p>
-                <Button onClick={() => deleteSavedItineraries(index)}>
-                  <IconMapCancel />
-                </Button>
+              <Flex
+                style={{ height: "8vh", width: "100%" }}
+                justify={"space-between"}
+                align={"center"}
+              >
+                <h3>{itinerary.name.toUpperCase()}</h3>
+                <Flex justify={"center"} align={"center"} gap={"md"}>
+                  <p>{formatTimestamp(itinerary.time)}</p>
+                  <Button onClick={() => deleteSavedItineraries(index)}>
+                    <IconMapCancel />
+                  </Button>
+                </Flex>
               </Flex>
+              <Map
+                className={styles.Map}
+                mapId={"56522fd9aef04113"}
+                zoomControl={false}
+                streetViewControl={false}
+                mapTypeControl={false}
+                fullscreenControl={false}
+                zoom={10}
+              >
+                <Directions
+                  start={itinerary.start}
+                  stops={itinerary.stops}
+                  arrival={itinerary.arrival}
+                />
+              </Map>
             </Flex>
-            <Map
-              className={styles.Map}
-              mapId={"56522fd9aef04113"}
-              zoomControl={false}
-              streetViewControl={false}
-              mapTypeControl={false}
-              fullscreenControl={false}
-              zoom={10}
-            >
-              <Directions
-                start={itinerary.start}
-                stops={itinerary.stops}
-                arrival={itinerary.arrival}
-              />
-            </Map>
-          </Flex>
-        ))}
-      </APIProvider>
+          ))}
+        </APIProvider>
+      ) : (
+        <>
+          <h1>No itineraries saved</h1>
+          <Link href={"/itineraryBuilder"}>
+            <Button>CREATE NEW ITINERARY</Button>
+          </Link>
+        </>
+      )}
     </Flex>
   );
 };

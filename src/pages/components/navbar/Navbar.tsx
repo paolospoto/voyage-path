@@ -17,12 +17,16 @@ const Navbar = () => {
     <Flex direction={"column"} className="Navbar">
       <ColorScheme />
       <NavbarEl link="/" icon={<IconHome />} title={"HOME"} />
-      <NavbarEl link="/xs" icon={<IconMap />} title={"ITINERARY"}>
-        <NavbarEl link="/myItineraries" icon={<IconHeart />} title={"MY IT"} />
+      <NavbarEl link="/xs" icon={<IconMap />} title={"ITINERARIES"}>
+        <NavbarEl
+          link="/myItineraries"
+          icon={<IconHeart />}
+          title={"MY ITINERARIES"}
+        />
         <NavbarEl
           link="/itineraryBuilder"
           icon={<IconPlus />}
-          title={"NEW IT"}
+          title={"NEW ITINERARY"}
         />
       </NavbarEl>
     </Flex>

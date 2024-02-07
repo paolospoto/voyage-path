@@ -3,6 +3,7 @@ import Globe3D from "../globe3D";
 import styles from "./index.module.scss";
 import { Button, Flex } from "@mantine/core";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   const [showOverlay, setShowOverlay] = useState(false);
@@ -38,7 +39,9 @@ const Hero = () => {
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et harum
               accusantium molestiae!
             </p>
-            <Button>START EXPLORING</Button>
+            <Link href="/itineraryBuilder">
+              <Button>START EXPLORING</Button>
+            </Link>
           </Flex>
         )}
       </Globe3D>
