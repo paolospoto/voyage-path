@@ -4,7 +4,7 @@ import ItineraryEditor from "./components/itineraryEditor";
 
 const ItineraryBuilder = () => {
   return (
-    <PageShell>
+    <PageShell pt={80}>
       <ItineraryEditor />
     </PageShell>
   );

@@ -3,7 +3,7 @@ import PageShell from "./components/pageShell";
 
 const MyItineraries = () => {
   return (
-    <PageShell>
+    <PageShell pt={80}>
       <ItinerariesList />
     </PageShell>
   );

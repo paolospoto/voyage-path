@@ -1,5 +1,6 @@
 export interface PageShellProps {
   children: React.ReactNode;
+  pt?: number;
   h?: boolean;
   n?: boolean;
   f?: boolean;

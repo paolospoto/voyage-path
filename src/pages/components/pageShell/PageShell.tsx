@@ -9,7 +9,7 @@ import { useDisclosure } from "@mantine/hooks";
 
 import Header from "../header";
 
-const PageShell: React.FC<PageShellProps> = ({ children }) => {
+const PageShell: React.FC<PageShellProps> = ({ children, pt }) => {
   const [opened, { toggle }] = useDisclosure();
 
   return (
@@ -35,7 +35,9 @@ const PageShell: React.FC<PageShellProps> = ({ children }) => {
         <Navbar />
       </AppShell.Navbar>
 
-      <AppShell.Main p={0}>{children}</AppShell.Main>
+      <AppShell.Main p={0} pt={pt}>
+        {children}
+      </AppShell.Main>
       <AppShell.Footer>Footer</AppShell.Footer>
     </AppShell>
   );
