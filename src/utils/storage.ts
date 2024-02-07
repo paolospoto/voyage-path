@@ -5,7 +5,11 @@ export const createItem = (key: string, value: any): void => {
 export const readItem = (key: string): any => {
   const value = localStorage.getItem(key);
 
-  return value;
+  try {
+    return JSON.parse(value as string);
+  } catch (error) {
+    return value;
+  }
 };
 
 export const updateItem = (key: string, value: any): void => {

@@ -14,6 +14,7 @@ const Hero = () => {
 
     return () => clearTimeout(timer);
   }, []);
+
   return (
     <div className={styles.Wrapper}>
       <Globe3D>

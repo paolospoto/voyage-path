@@ -7,12 +7,15 @@ import { IconMinus, IconPlus, IconX } from "@tabler/icons-react";
 
 import Directions from "../directions";
 import { Stop } from "@/utils/types";
+import { createItem, readItem, updateItem } from "@/utils/storage";
+import { start } from "repl";
 
 const ItineraryEditor = () => {
   const [startInput, setStartInput] = useState("");
   const [stopInputs, setStopInputs] = useState<string[]>([]);
   const [stops, setStops] = useState<Stop[]>([]);
   const [arrivalInput, setArrivalInput] = useState("");
+  const [nameInput, setNameInput] = useState("");
   const [startLat, setStartLat] = useState(0);
   const [startLng, setStartLng] = useState(0);
   const [renderForm, setRenderForm] = useState(true);
@@ -53,6 +56,9 @@ const ItineraryEditor = () => {
   const handleArrivalInput = (e: any) => {
     setArrivalInput(e.target.value);
   };
+  const handleNameChange = (e: any) => {
+    setNameInput(e.target.value);
+  };
 
   const handleStartingPoint = () => {
     geocode(RequestType.ADDRESS, startInput)
@@ -92,6 +98,21 @@ const ItineraryEditor = () => {
     setStopInputs([]);
   };
 
+  useEffect(() => {
+    createItem("itinerary", []);
+  }, []);
+
+  const saveItinerary = (e: any) => {
+    e.preventDefault();
+    const tempItinerary = readItem("itinerary");
+    tempItinerary.push({
+      name: nameInput,
+      start: startInput,
+      stops: stopInputs,
+      arrival: arrivalInput,
+    });
+    updateItem("itinerary", tempItinerary);
+  };
   return (
     <div style={{ width: "100%", height: "60vh", padding: "0.5rem" }}>
       {renderForm ? (
@@ -144,10 +165,15 @@ const ItineraryEditor = () => {
         </form>
       ) : (
         <Flex gap={"sm"} p={"sm"}>
-          <Button>SAVE ITINERARY</Button>
-          <Button>
-            <IconX />
-          </Button>
+          <form className={styles.Form} onSubmit={saveItinerary}>
+            <input
+              type="text"
+              placeholder="name"
+              required
+              onChange={handleNameChange}
+            />
+            <input type="submit" value="SAVE" />
+          </form>
         </Flex>
       )}
 
