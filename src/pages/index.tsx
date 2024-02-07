@@ -1,9 +1,7 @@
-/* eslint-disable @next/next/no-sync-scripts */
 import Head from "next/head";
 
 import PageShell from "./components/pageShell";
 
-import Script from "next/script";
 import Hero from "./components/hero";
 
 export default function Home() {

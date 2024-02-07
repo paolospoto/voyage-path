@@ -35,9 +35,7 @@ const PageShell: React.FC<PageShellProps> = ({ children }) => {
         <Navbar />
       </AppShell.Navbar>
 
-      <AppShell.Main p={0} pt={80}>
-        {children}
-      </AppShell.Main>
+      <AppShell.Main p={0}>{children}</AppShell.Main>
       <AppShell.Footer>Footer</AppShell.Footer>
     </AppShell>
   );
