@@ -17,3 +17,10 @@ export interface Stop {
   location: string;
   stopover: boolean;
 }
+
+export interface ItineraryData {
+  name: string;
+  start: string;
+  stops: Stop[];
+  arrival: string;
+}

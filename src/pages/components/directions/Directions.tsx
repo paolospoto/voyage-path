@@ -21,7 +21,14 @@ const Directions = ({ start, stops, arrival }: any) => {
   useEffect(() => {
     if (!routesLibrary || !map) return;
     setDirectionsService(new routesLibrary.DirectionsService());
-    setDirectionsRenderer(new routesLibrary.DirectionsRenderer({ map }));
+    setDirectionsRenderer(
+      new routesLibrary.DirectionsRenderer({
+        map,
+        polylineOptions: {
+          strokeColor: "white",
+        },
+      })
+    );
   }, [routesLibrary, map]);
 
   useEffect(() => {

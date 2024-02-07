@@ -18,7 +18,7 @@ const Navbar = () => {
       <ColorScheme />
       <NavbarEl link="/" icon={<IconHome />} title={"HOME"} />
       <NavbarEl link="/xs" icon={<IconMap />} title={"ITINERARY"}>
-        <NavbarEl link="/sx" icon={<IconHeart />} title={"MY IT"} />
+        <NavbarEl link="/myItineraries" icon={<IconHeart />} title={"MY IT"} />
         <NavbarEl
           link="/itineraryBuilder"
           icon={<IconPlus />}

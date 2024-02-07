@@ -95,23 +95,22 @@ const ItineraryEditor = () => {
       stopover: true,
     }));
     setStops(stops.concat(tempStops));
-    setStopInputs([]);
   };
 
   useEffect(() => {
-    createItem("itinerary", []);
+    if (readItem("itineraries") === null) createItem("itineraries", []);
   }, []);
 
   const saveItinerary = (e: any) => {
     e.preventDefault();
-    const tempItinerary = readItem("itinerary");
+    const tempItinerary = readItem("itineraries");
     tempItinerary.push({
       name: nameInput,
       start: startInput,
-      stops: stopInputs,
+      stops: stops,
       arrival: arrivalInput,
     });
-    updateItem("itinerary", tempItinerary);
+    updateItem("itineraries", tempItinerary);
   };
   return (
     <div style={{ width: "100%", height: "60vh", padding: "0.5rem" }}>
@@ -180,6 +179,7 @@ const ItineraryEditor = () => {
       <APIProvider apiKey={"AIzaSyAziHvXBEgvKmVPbzZkcaTasDxOjWt1cwQ"}>
         {renderMap && (
           <Map
+            mapId={"56522fd9aef04113"}
             zoomControl={false}
             streetViewControl={false}
             mapTypeControl={false}
