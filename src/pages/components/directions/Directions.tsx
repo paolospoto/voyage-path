@@ -25,7 +25,12 @@ const Directions = ({ start, stops, arrival }: any) => {
   }, [routesLibrary, map]);
 
   useEffect(() => {
+    console.log("fra");
+  }, []);
+
+  useEffect(() => {
     if (!directionsService || !directionRenderer) return;
+
     directionsService
       .route({
         origin: start,
@@ -34,7 +39,6 @@ const Directions = ({ start, stops, arrival }: any) => {
         travelMode: google.maps.TravelMode.DRIVING,
       })
       .then((response) => {
-        console.log(response.routes[0]);
         setRoute(response.routes[0]);
 
         directionRenderer.setDirections(response);
@@ -55,7 +59,7 @@ const Directions = ({ start, stops, arrival }: any) => {
           gap={"sm"}
         >
           <>
-            <IconHomeMove /> <p> From {route.legs[0].start_address} </p>
+            <IconHomeMove /> <p> From {start.split(",")[0].toUpperCase()} </p>
             {stops.length !== 0 && (
               <>
                 <IconArrowRight />
@@ -67,7 +71,7 @@ const Directions = ({ start, stops, arrival }: any) => {
               </>
             )}
             <IconPointFilled />
-            <p> To {route.legs[stops.length].end_address} </p>
+            <p> To {arrival.split(",")[0].toUpperCase()} </p>
           </>
         </Flex>
       )}

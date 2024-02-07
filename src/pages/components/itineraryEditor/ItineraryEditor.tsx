@@ -38,7 +38,6 @@ const ItineraryEditor = () => {
         handleStartingPoint();
         break;
       case "arrival":
-        console.log(stops);
         handleStopPoints();
         setRenderDirections(true);
         setRenderForm(false);
@@ -58,7 +57,6 @@ const ItineraryEditor = () => {
   const handleStartingPoint = () => {
     geocode(RequestType.ADDRESS, startInput)
       .then(({ results }) => {
-        console.log(results[0].geometry.location);
         const { lat, lng } = results[0].geometry.location;
         setStartLat(lat);
         setStartLng(lng);
