@@ -31,7 +31,7 @@ const ItinerariesList = () => {
   };
 
   return (
-    <Flex direction={"column"} align={"center"} justify={"center"} p={"lg"}>
+    <Flex direction={"column"} align={"center"} justify={"center"} p={"md"}>
       {itineraries.length !== 0 ? (
         <APIProvider apiKey={"AIzaSyAziHvXBEgvKmVPbzZkcaTasDxOjWt1cwQ"}>
           {itineraries.map((itinerary, index) => (

@@ -58,7 +58,7 @@ const Directions = ({ start, stops, arrival }: any) => {
           justify={"center"}
           align={"center"}
           direction={"row"}
-          gap={"sm"}
+          gap={"xs"}
         >
           <>
             <IconHomeMove /> <p> From {start.split(",")[0].toUpperCase()} </p>
