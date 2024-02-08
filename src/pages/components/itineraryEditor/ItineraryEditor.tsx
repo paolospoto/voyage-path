@@ -19,9 +19,9 @@ const ItineraryEditor = () => {
   const [nameInput, setNameInput] = useState("");
   const [startLat, setStartLat] = useState(0);
   const [startLng, setStartLng] = useState(0);
+
   const [renderForm, setRenderForm] = useState(true);
   const [renderModal, setRenderModal] = useState(false);
-
   const [renderMap, setRenderMap] = useState(false);
   const [renderDirections, setRenderDirections] = useState(false);
 
@@ -95,11 +95,10 @@ const ItineraryEditor = () => {
     setStopInputs([...stopInputs, ""]);
   };
   const removeStopInput = (index: any) => {
-    // Crea una copia dell'array per evitare di modificare lo stato direttamente
     const tempStops = [...stopInputs];
-    // Rimuove 1 elemento all'indice specificato
+
     tempStops.splice(index, 1);
-    // Aggiorna lo stato con il nuovo array
+
     setStopInputs(tempStops);
   };
 
@@ -117,6 +116,8 @@ const ItineraryEditor = () => {
 
   const saveItinerary = (e: any) => {
     e.preventDefault();
+
+    if (nameInput.length > 12) return alert("Max 12 characters");
     const tempItinerary = readItem("itineraries");
     tempItinerary.push({
       name: nameInput,
@@ -184,15 +185,24 @@ const ItineraryEditor = () => {
           )}
         </form>
       ) : (
-        <Flex gap={"sm"} p={"sm"}>
+        <Flex
+          gap={"xs"}
+          p={"sm"}
+          direction={"column"}
+          justify={"center"}
+          align={"center"}
+        >
           <form className={styles.Form} onSubmit={saveItinerary}>
-            <input
-              type="text"
-              placeholder="name"
-              required
-              onChange={handleNameChange}
-            />
-            <input type="submit" value="SAVE" />
+            <h3>Choose a name</h3>
+            <div className={styles.Input}>
+              <input
+                type="text"
+                placeholder="(Max 12 characters)"
+                required
+                onChange={handleNameChange}
+              />
+              <input type="submit" value="SAVE" />
+            </div>
           </form>
         </Flex>
       )}

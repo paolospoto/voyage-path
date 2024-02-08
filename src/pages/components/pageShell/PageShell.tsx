@@ -38,7 +38,9 @@ const PageShell: React.FC<PageShellProps> = ({ children, pt }) => {
       <AppShell.Main p={0} pt={pt}>
         {children}
       </AppShell.Main>
-      <AppShell.Footer>Footer</AppShell.Footer>
+      <AppShell.Footer style={{ backgroundColor: "#5072ad", color: "white" }}>
+        Footer
+      </AppShell.Footer>
     </AppShell>
   );
 };

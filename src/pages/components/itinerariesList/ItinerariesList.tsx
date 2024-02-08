@@ -5,7 +5,7 @@ import Directions from "../directions";
 import { Button, Flex } from "@mantine/core";
 import { ItineraryData } from "@/utils/types";
 import { formatTimestamp } from "@/utils/functions";
-import { IconMapCancel } from "@tabler/icons-react";
+import { IconInfoCircle, IconMapCancel } from "@tabler/icons-react";
 
 import styles from "./index.module.scss";
 import Link from "next/link";
@@ -49,8 +49,18 @@ const ItinerariesList = () => {
                 align={"center"}
               >
                 <h3>{itinerary.name.toUpperCase()}</h3>
-                <Flex justify={"center"} align={"center"} gap={"md"}>
+                <Flex justify={"center"} align={"center"} gap={"xs"}>
                   <p>{formatTimestamp(itinerary.time)}</p>
+                  <Link
+                    href={{
+                      pathname: "/[itinerary]",
+                      query: { itinerary: index },
+                    }}
+                  >
+                    <Button>
+                      <IconInfoCircle />
+                    </Button>
+                  </Link>
                   <Button onClick={() => deleteSavedItineraries(index)}>
                     <IconMapCancel />
                   </Button>

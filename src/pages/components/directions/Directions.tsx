@@ -24,16 +24,9 @@ const Directions = ({ start, stops, arrival }: any) => {
     setDirectionsRenderer(
       new routesLibrary.DirectionsRenderer({
         map,
-        // polylineOptions: {
-        //   strokeColor: "white",
-        // },
       })
     );
   }, [routesLibrary, map]);
-
-  useEffect(() => {
-    console.log("fra");
-  }, []);
 
   useEffect(() => {
     if (!directionsService || !directionRenderer) return;
@@ -46,6 +39,8 @@ const Directions = ({ start, stops, arrival }: any) => {
         travelMode: google.maps.TravelMode.DRIVING,
       })
       .then((response) => {
+        console.log(response);
+
         setRoute(response.routes[0]);
 
         directionRenderer.setDirections(response);
